@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { PlayingState } from './speech';
-
+import { PlayingState, createSpeechEngine } from "./speech";
+const speechEngine = createSpeechEngine({
+  onBoundary: () => {},
+  onEnd: () => {},
+  onStateUpdate: () => {},
+});
 /*
   @description
   Implement a custom useSpeech hook that uses a speech engine defined in 'speech.ts'
@@ -15,8 +19,13 @@ const useSpeech = (sentences: Array<string>) => {
   const [currentWordRange, setCurrentWordRange] = useState([0, 0]);
 
   const [playbackState, setPlaybackState] = useState<PlayingState>("paused");
-
-  const play = () => {};
+  useEffect(() => {
+    speechEngine.load(sentences[currentSentenceIdx]);
+  }, [sentences, currentSentenceIdx]);
+  const play = () => {
+    speechEngine.play();
+    setCurrentSentenceIdx(currentSentenceIdx + 1)
+  };
   const pause = () => {};
 
   return {

@@ -7,6 +7,8 @@
  *
  * See example.gif for an example of how the component should look like, feel free to style it however you want as long as the testID exists
  */
+import "./../App.css";
+
 export const CurrentlyReading = ({
   currentWordRange,
   currentSentenceIdx,
@@ -16,5 +18,14 @@ export const CurrentlyReading = ({
   currentSentenceIdx: number;
   sentences: string[];
 }) => {
-  return <div data-testid="currently-reading"></div>;
+  return (
+    <div data-testid="currently-reading" className="currently-reading">
+      <p data-testid="current-sentence" className="currently-reading-text">
+        {sentences[currentSentenceIdx]}
+      </p>
+      {sentences.map((s) => (
+        <p>{s}</p>
+      ))}
+    </div>
+  );
 };
