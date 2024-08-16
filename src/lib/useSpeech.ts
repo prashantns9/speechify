@@ -20,11 +20,13 @@ const useSpeech = (sentences: Array<string>) => {
 
   const [playbackState, setPlaybackState] = useState<PlayingState>("paused");
   useEffect(() => {
-    speechEngine.load(sentences[currentSentenceIdx]);
+    if (sentences[currentSentenceIdx]) {
+      speechEngine.load(sentences[currentSentenceIdx]);
+    }
   }, [sentences, currentSentenceIdx]);
   const play = () => {
     speechEngine.play();
-    setCurrentSentenceIdx(currentSentenceIdx + 1)
+    setCurrentSentenceIdx(currentSentenceIdx + 1);
   };
   const pause = () => {};
 
